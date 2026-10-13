@@ -15,3 +15,8 @@ coverage/
 
 # Proje koku dizinine birakilmis alakasiz 3D model varlik paketi
 /Ultimate Animated Animals*/
+
+# Toplu ölçüm çıktıları (Faz 5) — anonim olsa da repo'ya girmez
+measurement-results/
+# Ölçüm için sağlanan alan adı listeleri repoya girmesin
+domains*.txt

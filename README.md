@@ -114,6 +114,7 @@ pnpm build    # tüm paketlerde tip kontrolü + derleme
 - [x] **Faz 2** — Platforma özel düzeltme rehberleri + doğrulama.
 - [x] **Faz 3** — Tehdit modeli (STRIDE) + SSRF sağlamlaştırma & bypass test paketi.
 - [x] **Faz 4** — CI (lint/typecheck/test + CodeQL), Dependabot, pnpm audit, test kapsamı.
+- [x] **Faz 5** — Toplu/anonim ölçüm betiği + metodoloji ([`docs/MEASUREMENT.md`](docs/MEASUREMENT.md)); `pnpm measure <domains.txt>`.
 - [ ] **Sonraki** — Exposure/CVE modülleri, kullanıcı hesapları, gömülebilir güven rozeti.
 
 ### 🧪 Kalite & CI
