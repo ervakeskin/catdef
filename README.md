@@ -102,14 +102,14 @@ pnpm build    # tüm paketlerde tip kontrolü + derleme
 - **SSRF koruması:** iç/özel/metadata IP'lerine (localhost, 10.x, 192.168.x, 169.254.169.254 …) çözülen alan adları taranmadan reddedilir ve `audit_log`'a yazılır.
 - **Yalnızca yetkili tarama:** sahibi olduğunuz veya test izniniz olan siteleri tarayın.
 
-> Aracın kendi tehdit modeli ve SSRF sağlamlaştırma testleri sonraki fazda `docs/THREAT_MODEL.md` ve `docs/SECURITY_TESTING.md` altında belgelenecektir.
+> Aracın kendi tehdit modeli [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) (STRIDE) ve SSRF sağlamlaştırma/bypass testleri [`docs/SECURITY_TESTING.md`](docs/SECURITY_TESTING.md) altında belgelidir.
 
 ### 🗺️ Yol haritası
 
 - [x] **Faz 0** — MVP: Header/TLS + DNS modülleri, skorlama, SSR rapor, sıfır kurulum.
 - [x] **Faz 1** — Metodoloji: OWASP/CWE/ASVS eşlemesi, `docs/SCORING.md`.
 - [x] **Faz 2** — Platforma özel düzeltme rehberleri + doğrulama.
-- [ ] **Faz 3** — Tehdit modeli + kapsamlı SSRF bypass test paketi.
+- [x] **Faz 3** — Tehdit modeli (STRIDE) + SSRF sağlamlaştırma & bypass test paketi.
 - [ ] **Faz 4** — CI (lint/typecheck/test/CodeQL), Dependabot, test kapsamı.
 - [ ] **Sonraki** — Exposure/CVE modülleri, kullanıcı hesapları, gömülebilir güven rozeti.
 

@@ -1,10 +1,21 @@
+import type { LookupFunction } from "node:net";
 import tls from "node:tls";
-import { request } from "undici";
+import { Agent, request } from "undici";
 import type { Finding, ModuleResult } from "@catdef/shared";
 import { makeFinding } from "@catdef/shared";
+import { createGuardedLookup } from "@catdef/shared/net-guard";
 import { config } from "../config.js";
 
 const REQUEST_TIMEOUT_MS = 10_000;
+
+// SSRF savunması: tüm HTTP(S) ve TLS bağlantıları, bağlantı anında domaini
+// yeniden çözüp public olduğunu doğrulayan guarded lookup'tan geçer. Bu, hem
+// DNS rebinding'i hem de iç adreslere yapılan 3xx yönlendirmelerini engeller
+// (yönlendirme hedefleri aynı dispatcher üzerinden tekrar denetlenir).
+// createGuardedLookup, net/tls/undici'nin beklediği LookupFunction imzasıyla
+// çalışır (runtime'da doğrulandı); tip olarak da öyle işaretliyoruz.
+const guardedLookup = createGuardedLookup() as unknown as LookupFunction;
+const guardedAgent = new Agent({ connect: { lookup: guardedLookup } });
 
 /** Kontrol edilen güvenlik header'ları → eksikse üretilecek finding_code. */
 const SECURITY_HEADERS: { header: string; code: string }[] = [
@@ -28,6 +39,7 @@ async function tryFetch(url: string, scheme: "https" | "http"): Promise<FetchOut
     const res = await request(url, {
       method: "GET",
       headers: { "user-agent": config.userAgent },
+      dispatcher: guardedAgent,
       maxRedirections: 3,
       headersTimeout: REQUEST_TIMEOUT_MS,
       bodyTimeout: REQUEST_TIMEOUT_MS,
@@ -55,6 +67,8 @@ function inspectTls(domain: string): Promise<CertInfo | null> {
         host: domain,
         port: 443,
         servername: domain,
+        // Bağlantı anında domaini yeniden çözüp public doğrular (rebinding savunması).
+        lookup: guardedLookup,
         timeout: REQUEST_TIMEOUT_MS,
         // Süresi dolmuş/uyumsuz sertifikayı da inceleyebilmek için elden doğrularız.
         rejectUnauthorized: false,
