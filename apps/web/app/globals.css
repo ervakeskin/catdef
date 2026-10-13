@@ -227,6 +227,66 @@ a {
   border-color: var(--low);
   color: var(--low);
 }
+
+/* Düzeltme rehberi (platform sekmeleri + kod) */
+.remediation summary {
+  color: var(--accent);
+}
+.rem-body {
+  margin-top: 10px;
+}
+.rem-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.rem-tab {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+}
+.rem-tab.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--card-2);
+  font-weight: 600;
+}
+.rem-code {
+  margin: 0;
+  padding: 12px 14px;
+  background: #0b0d11;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #d7dce5;
+  white-space: pre;
+}
+.rem-verify {
+  margin-top: 10px;
+}
+.rem-verify-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--low);
+  margin-bottom: 4px;
+}
+.rem-code.verify {
+  color: #9ae6b4;
+}
+.rem-note {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
 .evidence {
   margin-top: 8px;
   font-family: ui-monospace, monospace;

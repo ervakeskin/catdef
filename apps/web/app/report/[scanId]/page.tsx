@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ScanResult } from "@catdef/shared";
+import { getRemediation } from "@catdef/shared";
 import { API_BASE, gradeColor, moodFor, severityColor, severityLabel, SEVERITY_ORDER } from "../../lib/ui";
 import Polling from "./Polling";
+import Remediation from "./Remediation";
 
 // Her istekte taze veri — tarama durumu değişebilir.
 export const dynamic = "force-dynamic";
@@ -102,6 +104,10 @@ export default async function ReportPage({ params }: { params: { scanId: string 
                   <div>{f.plainExplanation}</div>
                 </details>
               )}
+              {(() => {
+                const guide = getRemediation(f.findingCode);
+                return guide ? <Remediation guide={guide} domain={scan.domain} /> : null;
+              })()}
               {f.falsePositiveNote && (
                 <details className="plain fp">
                   <summary>Yanlış pozitif olabilir mi?</summary>
