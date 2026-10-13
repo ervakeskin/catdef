@@ -13,7 +13,7 @@
   "dependencies": {
     "@catdef/shared": "workspace:*",
     "bullmq": "^5.15.0",
-    "dotenv": "^16.4.5",
+    "dotenv": "^18.0.7",
     "ioredis": "^5.4.1",
     "pg": "^8.13.0",
     "undici": "^6.19.8"
