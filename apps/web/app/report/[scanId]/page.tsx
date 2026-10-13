@@ -74,13 +74,38 @@ export default async function ReportPage({ params }: { params: { scanId: string 
                   {severityLabel(f.severity)}
                 </span>
                 <h3>{f.title}</h3>
+                {f.pointsDeducted > 0 && (
+                  <span className="points" title="Bu bulgunun skora etkisi">
+                    −{f.pointsDeducted} puan
+                  </span>
+                )}
               </div>
               {f.description && <p className="desc">{f.description}</p>}
               {f.evidence && <div className="evidence">Kanıt: {f.evidence}</div>}
+              {f.standards && (
+                <div className="standards">
+                  <span className="std-chip owasp">{f.standards.owaspTop10_2025}</span>
+                  <span className="std-chip owasp-old">{f.standards.owaspTop10_2021}</span>
+                  <span className="std-chip cwe">{f.standards.cwe}</span>
+                  {f.standards.asvs && <span className="std-chip asvs">{f.standards.asvs}</span>}
+                </div>
+              )}
+              {f.whyItMatters && (
+                <details className="plain why">
+                  <summary>Neden önemli?</summary>
+                  <div>{f.whyItMatters}</div>
+                </details>
+              )}
               {f.plainExplanation && (
                 <details className="plain">
                   <summary>ⓘ Bu ne demek?</summary>
                   <div>{f.plainExplanation}</div>
+                </details>
+              )}
+              {f.falsePositiveNote && (
+                <details className="plain fp">
+                  <summary>Yanlış pozitif olabilir mi?</summary>
+                  <div>{f.falsePositiveNote}</div>
                 </details>
               )}
             </div>

@@ -12,3 +12,6 @@ coverage/
 
 # Maskot kaynak görselinin kök dizindeki ham kopyası (assets/mascot.png'de mevcut)
 /ChatGPT Image*.png
+
+# Proje koku dizinine birakilmis alakasiz 3D model varlik paketi
+/Ultimate Animated Animals*/

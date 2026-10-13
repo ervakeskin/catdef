@@ -156,6 +156,14 @@ a {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
+}
+.finding .points {
+  margin-left: auto;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--high);
+  white-space: nowrap;
 }
 .sev-tag {
   font-size: 0.7rem;
@@ -186,6 +194,38 @@ a {
   color: var(--accent);
   font-weight: 600;
   list-style: none;
+}
+.plain.why summary {
+  color: var(--high);
+}
+.plain.fp summary {
+  color: var(--muted);
+}
+
+/* Standart eşleme etiketleri (OWASP / CWE / ASVS) */
+.standards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.std-chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-2);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.std-chip.owasp {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.std-chip.cwe {
+  border-color: var(--low);
+  color: var(--low);
 }
 .evidence {
   margin-top: 8px;

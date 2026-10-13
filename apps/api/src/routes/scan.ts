@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import type { Grade, ModuleStatus, ModuleType, ScanResult, Severity } from "@catdef/shared";
+import { findingMeta } from "@catdef/shared";
 import { guardDomain, isValidDomain, normalizeDomain } from "@catdef/shared/net-guard";
 import { pool } from "../db.js";
 import { config } from "../config.js";
@@ -129,16 +130,23 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
         findings: [],
         rawData: m.raw_data ?? {},
       })),
-      findings: findingsRes.rows.map((f) => ({
-        moduleType: f.module_type,
-        findingCode: f.finding_code,
-        severity: f.severity,
-        title: f.title,
-        description: f.description ?? "",
-        plainExplanation: f.plain_explanation ?? "",
-        evidence: f.evidence ?? undefined,
-        pointsDeducted: f.points_deducted,
-      })),
+      findings: findingsRes.rows.map((f) => {
+        // Standart eşlemeleri DB'de saklanmaz; katalogdan yanıt anında eklenir.
+        const meta = findingMeta(f.finding_code);
+        return {
+          moduleType: f.module_type,
+          findingCode: f.finding_code,
+          severity: f.severity,
+          title: f.title,
+          description: f.description ?? "",
+          plainExplanation: f.plain_explanation ?? "",
+          whyItMatters: meta?.whyItMatters,
+          falsePositiveNote: meta?.falsePositiveNote,
+          standards: meta?.standards,
+          evidence: f.evidence ?? undefined,
+          pointsDeducted: f.points_deducted,
+        };
+      }),
     };
 
     return reply.send(result);
