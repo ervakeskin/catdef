@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.next/
+.turbo/
+*.tsbuildinfo
+.env
+.env.local
+npm-debug.log*
+pnpm-debug.log*
+coverage/
+.devdata/
+
+# Maskot kaynak görselinin kök dizindeki ham kopyası (assets/mascot.png'de mevcut)
+/ChatGPT Image*.png

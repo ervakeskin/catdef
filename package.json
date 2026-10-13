@@ -1,0 +1,25 @@
+{
+  "name": "catdef",
+  "version": "0.0.0",
+  "private": true,
+  "description": "CatDef — pasif site güvenlik tarayıcısı (Faz 0 MVP)",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:local": "node scripts/dev-local.mjs",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "db:migrate": "node scripts/migrate.mjs"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "embedded-postgres": "18.4.0-beta.17",
+    "pg": "^8.13.0",
+    "turbo": "^2.1.3",
+    "typescript": "^5.6.2"
+  }
+}
