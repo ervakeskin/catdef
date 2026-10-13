@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@catdef/shared": "workspace:*",
-    "@fastify/cors": "^10.0.1",
+    "@fastify/cors": "^11.3.1",
     "bullmq": "^5.15.0",
     "dotenv": "^16.4.5",
     "fastify": "^5.0.0",
