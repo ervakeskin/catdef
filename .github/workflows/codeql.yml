@@ -17,7 +17,7 @@ jobs:
     name: CodeQL analizi (JS/TS)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: CodeQL başlat
         uses: github/codeql-action/init@v3
