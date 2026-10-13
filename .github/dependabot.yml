@@ -1,0 +1,20 @@
+version: 2
+updates:
+  # npm/pnpm bağımlılıkları (monorepo kökü; workspace'leri kapsar)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      # Küçük/yama güncellemeleri tek PR'da toplanır (gürültüyü azaltır).
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions sürümleri
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

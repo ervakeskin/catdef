@@ -12,7 +12,10 @@
 ![Next.js](https://img.shields.io/badge/Next.js-14-000000?logo=nextdotjs&logoColor=white)
 ![Fastify](https://img.shields.io/badge/Fastify-5-000000?logo=fastify&logoColor=white)
 ![pnpm](https://img.shields.io/badge/pnpm-workspace-f69220?logo=pnpm&logoColor=white)
-![status](https://img.shields.io/badge/durum-aktif%20geliştirme-blue)
+<br/>
+[![CI](https://github.com/ervakeskin/catdef/actions/workflows/ci.yml/badge.svg)](https://github.com/ervakeskin/catdef/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/ervakeskin/catdef/actions/workflows/codeql.yml/badge.svg)](https://github.com/ervakeskin/catdef/actions/workflows/codeql.yml)
+![license](https://img.shields.io/badge/license-MIT-green)
 
 [Türkçe](#-türkçe) · [English](#-english)
 
@@ -110,8 +113,17 @@ pnpm build    # tüm paketlerde tip kontrolü + derleme
 - [x] **Faz 1** — Metodoloji: OWASP/CWE/ASVS eşlemesi, `docs/SCORING.md`.
 - [x] **Faz 2** — Platforma özel düzeltme rehberleri + doğrulama.
 - [x] **Faz 3** — Tehdit modeli (STRIDE) + SSRF sağlamlaştırma & bypass test paketi.
-- [ ] **Faz 4** — CI (lint/typecheck/test/CodeQL), Dependabot, test kapsamı.
+- [x] **Faz 4** — CI (lint/typecheck/test + CodeQL), Dependabot, pnpm audit, test kapsamı.
 - [ ] **Sonraki** — Exposure/CVE modülleri, kullanıcı hesapları, gömülebilir güven rozeti.
+
+### 🧪 Kalite & CI
+
+- **GitHub Actions** (`.github/workflows/ci.yml`): lint/tip kontrolü, tüm paketlerde
+  build ve testler her push/PR'da çalışır.
+- **CodeQL** (`.github/workflows/codeql.yml`): JS/TS için güvenlik + kalite statik analizi.
+- **Dependabot** (`.github/dependabot.yml`): haftalık npm + GitHub Actions güncellemeleri.
+- **pnpm audit**: yüksek/kritik bağımlılık açıkları CI'da raporlanır.
+- Testler: `pnpm test` · kapsam raporu: `pnpm --filter @catdef/shared test:coverage`.
 
 ---
 
@@ -151,6 +163,12 @@ Passive observation only; scan only domains you own or are authorised to test. D
 ### Roadmap
 
 Phase 0–2 complete (MVP, standards methodology, remediation guides). Next: threat model + SSRF bypass test suite (Phase 3), CI/CodeQL/Dependabot (Phase 4), then exposure/CVE modules and an embeddable trust badge.
+
+---
+
+## 📄 Lisans / License
+
+MIT — bkz. [`LICENSE`](LICENSE).
 
 ---
 

@@ -18,7 +18,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -p tsconfig.json --watch",
-    "test": "node --import tsx --test src/scoring.test.ts src/findings-catalog.test.ts src/net-guard.test.ts",
+    "test": "node --import tsx --test src/scoring.test.ts src/findings-catalog.test.ts src/net-guard.test.ts src/remediation.test.ts",
+    "test:coverage": "node --import tsx --test --experimental-test-coverage src/scoring.test.ts src/findings-catalog.test.ts src/net-guard.test.ts src/remediation.test.ts",
     "lint": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {

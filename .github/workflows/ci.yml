@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Lint · Typecheck · Build · Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: pnpm kurulumu
+        uses: pnpm/action-setup@v4
+
+      - name: Node.js kurulumu
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Bağımlılıklar
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint / tip kontrolü (shared · api · worker)
+        run: pnpm --filter @catdef/shared --filter @catdef/api --filter @catdef/worker run lint
+
+      - name: Build (web dahil tam tip kontrolü)
+        run: pnpm build
+
+      - name: Testler
+        run: pnpm test
+
+  audit:
+    name: Bağımlılık denetimi (pnpm audit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Yüksek/kritik seviyedeki açıkları raporlar. Geçişli (transitive) uyarılar
+      # CI'yı bloklamasın diye bilgilendirici tutulur; ihlaller loglarda görünür.
+      - name: pnpm audit (high+)
+        run: pnpm audit --audit-level=high
+        continue-on-error: true
