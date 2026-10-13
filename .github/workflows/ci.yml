@@ -28,11 +28,13 @@ jobs:
       - name: Bağımlılıklar
         run: pnpm install --frozen-lockfile
 
-      - name: Lint / tip kontrolü (shared · api · worker)
-        run: pnpm --filter @catdef/shared --filter @catdef/api --filter @catdef/worker run lint
-
+      # Önce build: shared'ın dist'ini üretir, böylece workspace tip çözümlemesi
+      # (@catdef/shared) lint sırasında hazır olur.
       - name: Build (web dahil tam tip kontrolü)
         run: pnpm build
+
+      - name: Lint / tip kontrolü (shared · api · worker)
+        run: pnpm --filter @catdef/shared --filter @catdef/api --filter @catdef/worker run lint
 
       - name: Testler
         run: pnpm test
