@@ -1,9 +1,11 @@
 name: CodeQL
 
+# Not: pull_request tetikleyicisi bilinçli olarak yok. Dependabot/fork PR'larında
+# GITHUB_TOKEN salt-okunur olduğu için SARIF yüklemesi "Resource not accessible"
+# hatası verir. CodeQL main'e her push'ta ve haftalık olarak çalışır — bu, kod
+# taraması için yeterli ve gürültüsüzdür.
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
   schedule:
     - cron: "27 3 * * 1" # her Pazartesi — düzenli statik analiz
@@ -17,15 +19,15 @@ jobs:
     name: CodeQL analizi (JS/TS)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: CodeQL başlat
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: javascript-typescript
           queries: security-and-quality
 
       - name: Analizi çalıştır
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
         with:
           category: "/language:javascript-typescript"

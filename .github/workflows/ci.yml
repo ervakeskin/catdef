@@ -14,13 +14,13 @@ jobs:
     name: Lint · Typecheck · Build · Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: pnpm kurulumu
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
 
       - name: Node.js kurulumu
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 20
           cache: pnpm
@@ -43,15 +43,14 @@ jobs:
     name: Bağımlılık denetimi (pnpm audit)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # Yüksek/kritik seviyedeki açıkları raporlar. Geçişli (transitive) uyarılar
-      # CI'yı bloklamasın diye bilgilendirici tutulur; ihlaller loglarda görünür.
-      - name: pnpm audit (high+)
-        run: pnpm audit --audit-level=high
-        continue-on-error: true
+      # Yüksek/kritik seviyedeki açıkları raporlar. Bilgilendiricidir: bulunsa bile
+      # (geçişli uyarılar nedeniyle) CI'yı bloklamaz; ayrıntı loglarda görünür.
+      - name: pnpm audit (high+, bilgilendirici)
+        run: pnpm audit --audit-level=high || echo "::notice::pnpm audit yüksek/kritik açık raporladı — loglara bakın."

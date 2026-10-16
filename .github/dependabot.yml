@@ -6,6 +6,12 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
+    # Major sürüm atlamaları (ör. TypeScript 7, Next 16, undici 8) kırıcı olabilir;
+    # portfolyo deposunu yeşil tutmak için otomatik major PR'ları açılmaz. Güvenlik
+    # güncellemeleri bu kuraldan etkilenmez ve yine önerilir. Major'lar elle yapılır.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       # Küçük/yama güncellemeleri tek PR'da toplanır (gürültüyü azaltır).
       minor-and-patch:
@@ -18,3 +24,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      actions:
+        patterns:
+          - "*"
